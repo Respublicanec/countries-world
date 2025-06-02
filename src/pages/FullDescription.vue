@@ -1,4 +1,5 @@
-<template><h1>hhhhhhhhhhhhhhhggg</h1></template>
-<script>
-export default {};
-</script>
+<template>
+  <h1>222</h1>
+  <router-link to="/">Назад</router-link>
+</template>
+<script></script>
