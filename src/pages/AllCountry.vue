@@ -1,6 +1,16 @@
 <template>
   <h1>111</h1>
-  <router-link :to="{ name: 'FullDescription' }">Вперед</router-link>
+  <router-link :to="{ name: 'FullDescription', params: { id: id } }"
+    >Вперед</router-link
+  >
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      id: 1,
+    };
+  },
+};
+</script>
