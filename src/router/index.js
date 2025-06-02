@@ -11,7 +11,7 @@ const router = createRouter({
       component: AllCountry,
     },
     {
-      path: "/FullDescription/:id",
+      path: "/:id",
       name: "FullDescription",
       component: FullDescription,
     },
