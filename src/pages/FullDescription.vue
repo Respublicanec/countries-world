@@ -1,5 +1,5 @@
 <template>
   <h1>222</h1>
-  <router-link :to="{ name: 'all' }">Назад</router-link>
+  <router-link to="/">Назад</router-link>
 </template>
 <script></script>

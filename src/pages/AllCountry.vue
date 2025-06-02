@@ -1,8 +1,6 @@
 <template>
   <h1>111</h1>
-  <router-link :to="{ name: 'FullDescription', params: { id: id } }"
-    >Вперед</router-link
-  >
+  <router-link to="/:id">Вперед</router-link>
 </template>
 
 <script>

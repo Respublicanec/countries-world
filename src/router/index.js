@@ -7,12 +7,10 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "all",
       component: AllCountry,
     },
     {
       path: "/:id",
-      name: "FullDescription",
       component: FullDescription,
     },
   ],
