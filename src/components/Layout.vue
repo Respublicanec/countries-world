@@ -7,7 +7,6 @@
       <button @click="counter.square()">square</button>
     </div>
   </div>
-  <router-view></router-view>
 </template>
 
 <script setup>
