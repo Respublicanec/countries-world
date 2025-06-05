@@ -11,6 +11,6 @@ import Header from "@/components/Header.vue";
 const darkTheme = ref(true);
 
 const colorTheme = () => {
-  console.log("fdg");
+  darkTheme.value = !darkTheme.value;
 };
 </script>

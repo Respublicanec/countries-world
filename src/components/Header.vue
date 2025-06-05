@@ -1,13 +1,15 @@
 <template>
   <header class="header" :class="{ white: !darkTheme }">
-    <h1 class="title" :class="{ white: !darkTheme }">Where in the world?</h1>
+    <span class="title" :class="{ white: !darkTheme }"
+      >Where in the world?</span
+    >
     <div class="theme" @click="$emit('colorTheme')">
       <img
         class="icon"
         :class="{ 'icon-black': darkTheme }"
         src="/images/moon.svg"
       />
-      <p class="theme-text">Dark Mode</p>
+      <p>Dark Mode</p>
     </div>
   </header>
 </template>
@@ -19,19 +21,19 @@ const props = defineProps({
   },
 });
 
-// const emit = defineEmits(["colorTheme"]);
+const emit = defineEmits(["colorTheme"]);
 </script>
 
 <style scoped>
 .title {
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .header {
   display: flex;
   background-color: #2b3743;
   color: #ffffff;
-  padding: 10px 78px;
+  padding: 22px 78px;
   align-items: center;
 }
 
@@ -54,9 +56,5 @@ const props = defineProps({
 
 .icon-black {
   filter: brightness(0) invert(1);
-}
-
-.theme-text {
-  font-size: 16px;
 }
 </style>
