@@ -1,7 +1,7 @@
 <template>
   <header class="header" :class="{ white: !darkTheme }">
     <h1 class="title" :class="{ white: !darkTheme }">Where in the world?</h1>
-    <div class="theme" @click="colorTheme()">
+    <div class="theme" @click="$emit('colorTheme')">
       <img
         class="icon"
         :class="{ 'icon-black': darkTheme }"
@@ -13,19 +13,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+const props = defineProps({
+  darkTheme: {
+    type: Boolean,
+  },
+});
 
-const darkTheme = ref(true);
-
-const colorTheme = () => {
-  darkTheme.value = !darkTheme.value;
-};
+// const emit = defineEmits(["colorTheme"]);
 </script>
 
 <style scoped>
 .title {
   font-size: 24px;
-  font-family: sans-serif;
 }
 
 .header {
@@ -58,7 +57,6 @@ const colorTheme = () => {
 }
 
 .theme-text {
-  font-family: "NunitoSans", sans-serif;
   font-size: 16px;
 }
 </style>
