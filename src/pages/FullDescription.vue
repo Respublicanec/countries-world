@@ -1,9 +1,9 @@
 <template>
-  <Layout />
+  <Header />
   <h1>222</h1>
   <router-link to="/">Назад</router-link>
 </template>
 
 <script setup>
-import Layout from "@/components/Layout.vue";
+import Header from "@/components/Header.vue";
 </script>

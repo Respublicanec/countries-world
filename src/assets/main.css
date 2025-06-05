@@ -16,9 +16,6 @@
   font-style: italic;
 }
 
-#app {
-}
-
 a,
 .green {
   text-decoration: none;
@@ -33,12 +30,12 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    width: 100%;
-    background: #4e88b1;
-  }
+body {
+  padding: 50px;
+  margin: 50px;
+  width: 100%;
+  background: #4e88b1;
+}
 
-  #app {
-  }
+#app {
 }
