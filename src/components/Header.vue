@@ -1,12 +1,12 @@
 <template>
-  <header class="header" :class="{ white: !darkTheme }">
-    <span class="title" :class="{ white: !darkTheme }"
+  <header class="header" :class="{ white: !darkTheme.isDarkTheme }">
+    <span class="title" :class="{ white: !darkTheme.isDarkTheme }"
       >Where in the world?</span
     >
-    <div class="theme" @click="$emit('colorTheme')">
+    <div class="theme">
       <img
         class="icon"
-        :class="{ 'icon-black': darkTheme }"
+        :class="{ 'icon-black': darkTheme.isDarkTheme }"
         src="/images/moon.svg"
       />
       <p>Dark Mode</p>
@@ -15,13 +15,9 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  darkTheme: {
-    type: Boolean,
-  },
-});
+import { darkThemeStore } from "@/stores/common";
 
-const emit = defineEmits(["colorTheme"]);
+const darkTheme = darkThemeStore();
 </script>
 
 <style scoped>
