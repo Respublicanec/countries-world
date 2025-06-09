@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-import { darkThemeStore } from "@/stores/common";
+import { useDarkThemeStore } from "@/stores/common";
 
-const darkTheme = darkThemeStore();
+const darkTheme = useDarkThemeStore();
 </script>
 
 <style scoped>
