@@ -1,12 +1,12 @@
 <template>
-  <header class="header" :class="{ white: !darkTheme.isDarkTheme }">
-    <span class="title" :class="{ white: !darkTheme.isDarkTheme }"
+  <header class="header" :class="{ white: !isDarkTheme }">
+    <span class="title" :class="{ white: !isDarkTheme }"
       >Where in the world?</span
     >
     <div class="theme">
       <img
         class="icon"
-        :class="{ 'icon-black': darkTheme.isDarkTheme }"
+        :class="{ 'icon-black': isDarkTheme }"
         src="/images/moon.svg"
       />
       <p>Dark Mode</p>
@@ -16,8 +16,11 @@
 
 <script setup>
 import { useDarkThemeStore } from "@/stores/common";
+import { storeToRefs } from "pinia";
 
 const darkTheme = useDarkThemeStore();
+
+const { isDarkTheme } = storeToRefs(darkTheme);
 </script>
 
 <style scoped>
