@@ -1,16 +1,12 @@
 <template>
-  <Header :darkTheme="darkTheme" @color-theme="colorTheme" />
+  <Header :darkTheme="darkTheme.isDarkTheme" @click="darkTheme.changeTheme" />
   <h1>222</h1>
   <router-link to="/">Назад</router-link>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import Header from "@/components/Header.vue";
+import { darkThemeStore } from "@/stores/common";
 
-const darkTheme = ref(true);
-
-const colorTheme = () => {
-  darkTheme.value = !darkTheme.value;
-};
+const darkTheme = darkThemeStore();
 </script>

@@ -1,18 +1,12 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useCounterStore = defineStore("counter", {
-  state: () => ({
-    count: 0,
-  }),
-  actions: {
-    addOne() {
-      this.count++;
-    },
-    minusOne() {
-      this.count--;
-    },
-    square() {
-      this.count = this.count * this.count;
-    },
-  },
+export const darkThemeStore = defineStore("theme", () => {
+  const isDarkTheme = ref(true);
+
+  function changeTheme() {
+    isDarkTheme.value = !isDarkTheme.value;
+  }
+
+  return { isDarkTheme, changeTheme };
 });
