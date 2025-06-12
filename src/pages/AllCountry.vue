@@ -19,7 +19,7 @@ onMounted(async () => {
   try {
     isLoading.value = true;
     const response = await fetch(
-      `https://restcountriess.com/v3.1/independent?status=true`
+      `https://restcountries.com/v3.1/independent?status=true`
     );
     if (!response.ok) {
       throw new Error(`Ошибка`);
