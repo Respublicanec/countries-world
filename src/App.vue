@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header @click="changeTheme" />
+    <Header @changeTheme="changeTheme" />
     <router-view></router-view>
   </div>
 </template>
