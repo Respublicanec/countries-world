@@ -1,10 +1,10 @@
 <template>
-  <p>{{ countries.name.common }}</p>
+  <p>{{ country.name.common }}</p>
 </template>
 
 <script setup>
 const props = defineProps({
-  countries: {
+  country: {
     type: Array,
   },
 });
