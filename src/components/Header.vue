@@ -3,7 +3,7 @@
     <span class="title" :class="{ white: !isDarkTheme }"
       >Where in the world?</span
     >
-    <div class="theme">
+    <div class="theme" @click="$emit('changeTheme')">
       <img
         class="icon"
         :class="{ 'icon-black': isDarkTheme }"
@@ -21,6 +21,8 @@ import { storeToRefs } from "pinia";
 const darkTheme = useDarkThemeStore();
 
 const { isDarkTheme } = storeToRefs(darkTheme);
+
+const emit = defineEmits(["click", "changeTheme"]);
 </script>
 
 <style scoped>
