@@ -1,6 +1,6 @@
 <template>
   <div class="header" :class="{ white: !isDarkTheme }">
-    <header class="header-container container-1440">
+    <header class="header-container full">
       <span class="title">Where in the world?</span>
       <div class="theme" @click="$emit('changeTheme')">
         <img
