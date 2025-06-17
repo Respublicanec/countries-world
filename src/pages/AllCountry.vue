@@ -1,6 +1,6 @@
 <template>
   <div class="block" :class="{ white: !isDarkTheme }">
-    <div class="full" :class="{ white: !isDarkTheme }">
+    <div class="container" :class="{ white: !isDarkTheme }">
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
         <Country
