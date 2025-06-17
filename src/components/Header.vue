@@ -1,17 +1,19 @@
 <template>
-  <header class="header" :class="{ white: !isDarkTheme }">
-    <span class="title" :class="{ white: !isDarkTheme }"
-      >Where in the world?</span
-    >
-    <div class="theme" @click="$emit('changeTheme')">
-      <img
-        class="icon"
-        :class="{ 'icon-black': isDarkTheme }"
-        src="/images/moon.svg"
-      />
-      <p>Dark Mode</p>
-    </div>
-  </header>
+  <div class="header-container" :class="{ white: !isDarkTheme }">
+    <header class="header" :class="{ white: !isDarkTheme }">
+      <span class="title" :class="{ white: !isDarkTheme }"
+        >Where in the world?</span
+      >
+      <div class="theme" @click="$emit('changeTheme')">
+        <img
+          class="icon"
+          :class="{ 'icon-black': isDarkTheme }"
+          src="/images/moon.svg"
+        />
+        <p>Dark Mode</p>
+      </div>
+    </header>
+  </div>
 </template>
 
 <script setup>
@@ -26,6 +28,21 @@ const emit = defineEmits(["click", "changeTheme"]);
 </script>
 
 <style scoped>
+.header-container {
+  display: flex;
+  justify-content: center;
+  background-color: #2b3743;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1440px;
+  width: 100%;
+}
+
 .title {
   font-size: 26px;
 }

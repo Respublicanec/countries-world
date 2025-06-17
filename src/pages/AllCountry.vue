@@ -1,15 +1,17 @@
 <template>
-  <div class="container" :class="{ white: !isDarkTheme }">
-    <div class="country">
-      <div v-if="isLoading">Загрузка данных...</div>
-      <Country
-        v-for="country in allCountries"
-        :key="country.name.common"
-        :country="country"
-      />
-    </div>
+  <div class="block" :class="{ white: !isDarkTheme }">
+    <div class="container" :class="{ white: !isDarkTheme }">
+      <div class="country">
+        <div v-if="isLoading">Загрузка данных...</div>
+        <Country
+          v-for="country in allCountries"
+          :key="country.name.common"
+          :country="country"
+        />
+      </div>
 
-    <router-link :to="`/${id}`">Вперед</router-link>
+      <router-link :to="`/${id}`">Вперед</router-link>
+    </div>
   </div>
 </template>
 
@@ -49,9 +51,15 @@ onMounted(async () => {
 </script>
 
 <style>
-.container {
+.block {
+  display: flex;
+  justify-content: center;
   background-color: #212e37;
   border: none;
+}
+
+.container {
+  max-width: 1440px;
 }
 
 .white {
