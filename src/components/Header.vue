@@ -31,9 +31,10 @@ const emit = defineEmits(["click", "changeTheme"]);
 .header-container {
   display: flex;
   justify-content: center;
+  position: relative;
   background-color: #2b3743;
   color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
 }
 
 .header {
