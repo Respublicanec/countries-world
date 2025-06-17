@@ -1,6 +1,6 @@
 <template>
   <div class="block" :class="{ white: !isDarkTheme }">
-    <div class="container" :class="{ white: !isDarkTheme }">
+    <div class="container-1440" :class="{ white: !isDarkTheme }">
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
         <Country
@@ -56,10 +56,6 @@ onMounted(async () => {
   justify-content: center;
   background-color: #212e37;
   border: none;
-}
-
-.container {
-  max-width: 1440px;
 }
 
 .white {
