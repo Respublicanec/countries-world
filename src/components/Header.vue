@@ -1,9 +1,7 @@
 <template>
   <div class="header-container" :class="{ white: !isDarkTheme }">
-    <header class="header" :class="{ white: !isDarkTheme }">
-      <span class="title" :class="{ white: !isDarkTheme }"
-        >Where in the world?</span
-      >
+    <header class="header">
+      <span class="title">Where in the world?</span>
       <div class="theme" @click="$emit('changeTheme')">
         <img
           class="icon"
@@ -56,6 +54,8 @@ const emit = defineEmits(["click", "changeTheme"]);
   align-items: center;
 }
 
+.header-container.white .header,
+.header-container.white .title,
 .white {
   background-color: #ffffff;
   color: #000000;
