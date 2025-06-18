@@ -1,10 +1,22 @@
 <template>
   <div class="block" :class="{ white: !isDarkTheme }">
     <div class="container" :class="{ white: !isDarkTheme }">
+      <div class="section">
+        <div class="search">
+          <img class="search-img" src="/images/loupe.svg" alt="" />
+          <input
+            class="input"
+            type="text"
+            placeholder="Searcch for a country..."
+            @input="test"
+          />
+        </div>
+      </div>
+
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
         <Country
-          v-for="country in allCountries"
+          v-for="country in filtered"
           :key="country.name.common"
           :country="country"
         />
@@ -31,6 +43,18 @@ const isLoading = ref(true);
 
 const allCountries = ref([]);
 
+const filtered = ref([]);
+
+const test = (event) => {
+  if (!event.target.value) {
+    filtered.value = allCountries.value;
+    return;
+  }
+  filtered.value = allCountries.value.filter((item) =>
+    item.name.common.toLowerCase().includes(event.target.value.toLowerCase())
+  );
+};
+
 onMounted(async () => {
   try {
     isLoading.value = true;
@@ -42,6 +66,7 @@ onMounted(async () => {
     }
     const data = await response.json();
     allCountries.value = data;
+    filtered.value = data;
   } catch (err) {
     console.log(err);
   } finally {
@@ -62,10 +87,41 @@ onMounted(async () => {
   background-color: #fafafa;
 }
 
+.section {
+  padding: 0 80px;
+}
+
+.search {
+  position: relative;
+  padding: 50px 0;
+  max-width: 480px;
+}
+
+.search-img {
+  position: absolute;
+  width: 19px;
+  left: 27px;
+  top: 67px;
+}
+
+.input {
+  background-color: #2b3743;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  padding-left: 70px;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: rgb(211, 213, 215);
+}
+
 .country {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 80px;
+  padding: 0 80px;
   gap: 70px;
 
   @media (max-width: 1400px) {
