@@ -3,12 +3,18 @@
     <div class="container" :class="{ white: !isDarkTheme }">
       <div class="section">
         <div class="search">
-          <img class="search-img" src="/images/loupe.svg" alt="" />
+          <img
+            class="search-img"
+            :class="{ 'icon-black': !isDarkTheme }"
+            src="/images/loupe.svg"
+            alt=""
+          />
           <input
             class="input"
+            :class="{ white: !isDarkTheme }"
             type="text"
             placeholder="Searcch for a country..."
-            @input="test"
+            @input="getFiltered"
           />
         </div>
       </div>
@@ -16,7 +22,7 @@
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
         <Country
-          v-for="country in filtered"
+          v-for="country in allCountries"
           :key="country.name.common"
           :country="country"
         />
@@ -43,19 +49,31 @@ const isLoading = ref(true);
 
 const allCountries = ref([]);
 
-const filtered = ref([]);
-
-const test = (event) => {
+const getFiltered = async (event) => {
   if (!event.target.value) {
-    filtered.value = allCountries.value;
+    await getCountries();
     return;
   }
-  filtered.value = allCountries.value.filter((item) =>
-    item.name.common.toLowerCase().includes(event.target.value.toLowerCase())
-  );
+
+  isLoading.value = true;
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${event.target.value}`
+    );
+    if (!response.ok) {
+      throw new Error("Ошибка");
+    }
+    const data = await response.json();
+    allCountries.value = data;
+    console.log(allCountries.value);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoading.value = false;
+  }
 };
 
-onMounted(async () => {
+const getCountries = async () => {
   try {
     isLoading.value = true;
     const response = await fetch(
@@ -66,13 +84,14 @@ onMounted(async () => {
     }
     const data = await response.json();
     allCountries.value = data;
-    filtered.value = data;
   } catch (err) {
     console.log(err);
   } finally {
     isLoading.value = false;
   }
-});
+};
+
+onMounted(getCountries);
 </script>
 
 <style>
@@ -81,10 +100,6 @@ onMounted(async () => {
   justify-content: center;
   background-color: #212e37;
   border: none;
-}
-
-.white {
-  background-color: #fafafa;
 }
 
 .section {
@@ -116,6 +131,16 @@ onMounted(async () => {
 
 .input::placeholder {
   color: rgb(211, 213, 215);
+}
+
+.white {
+  background-color: #fafafa;
+}
+
+.icon-black {
+  background-color: #282323;
+  filter: brightness(0) invert(1);
+  color: rrgb(46, 106, 166);
 }
 
 .country {
