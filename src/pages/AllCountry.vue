@@ -5,13 +5,13 @@
         <div class="search">
           <img
             class="search-img"
-            :class="{ 'icon-black': !isDarkTheme }"
+            :class="{ 'img-black': !isDarkTheme }"
             src="/images/loupe.svg"
             alt=""
           />
           <input
             class="input"
-            :class="{ white: !isDarkTheme }"
+            :class="{ 'input-white': !isDarkTheme }"
             type="text"
             placeholder="Searcch for a country..."
             @input="getFiltered"
@@ -137,10 +137,12 @@ onMounted(getCountries);
   background-color: #fafafa;
 }
 
-.icon-black {
-  background-color: #282323;
-  filter: brightness(0) invert(1);
-  color: rrgb(46, 106, 166);
+.input-white {
+  background-color: #ffffff;
+}
+
+.img-black {
+  filter: invert(1);
 }
 
 .country {

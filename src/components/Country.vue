@@ -14,7 +14,7 @@
         </p>
         <p>
           <span class="bold">Capital:</span>
-          {{ country.capital[0] }}
+          {{ Array.isArray(country.capital) ? country.capital[0] : "" }}
         </p>
       </div>
     </div>
