@@ -3,12 +3,18 @@
     <div class="container" :class="{ white: !isDarkTheme }">
       <div class="section">
         <div class="search">
-          <img class="search-img" src="/images/loupe.svg" alt="" />
+          <img
+            class="search-img"
+            :class="{ 'img-black': !isDarkTheme }"
+            src="/images/loupe.svg"
+            alt=""
+          />
           <input
             class="input"
+            :class="{ 'input-white': !isDarkTheme }"
             type="text"
             placeholder="Searcch for a country..."
-            @input="test"
+            @input="getFiltered"
           />
         </div>
       </div>
@@ -16,7 +22,7 @@
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
         <Country
-          v-for="country in filtered"
+          v-for="country in allCountries"
           :key="country.name.common"
           :country="country"
         />
@@ -43,36 +49,37 @@ const isLoading = ref(true);
 
 const allCountries = ref([]);
 
-const filtered = ref([]);
+const getFiltered = async (event = { target: { value: "" } }) => {
+  isLoading.value = true;
 
-const test = (event) => {
-  if (!event.target.value) {
-    filtered.value = allCountries.value;
-    return;
-  }
-  filtered.value = allCountries.value.filter((item) =>
-    item.name.common.toLowerCase().includes(event.target.value.toLowerCase())
-  );
-};
-
-onMounted(async () => {
   try {
-    isLoading.value = true;
+    if (event.target.value) {
+      const response = await fetch(
+        `https://restcountries.com/v3.1/name/${event.target.value}`
+      );
+      const data = await response.json();
+      allCountries.value = data;
+      return;
+    }
+
     const response = await fetch(
       `https://restcountries.com/v3.1/independent?status=true`
     );
+
     if (!response.ok) {
-      throw new Error(`Ошибка`);
+      throw new Error("Ошибка");
     }
     const data = await response.json();
     allCountries.value = data;
-    filtered.value = data;
-  } catch (err) {
-    console.log(err);
+    console.log(allCountries.value);
+  } catch (error) {
+    console.error(error);
   } finally {
     isLoading.value = false;
   }
-});
+};
+
+onMounted(getFiltered);
 </script>
 
 <style>
@@ -81,10 +88,6 @@ onMounted(async () => {
   justify-content: center;
   background-color: #212e37;
   border: none;
-}
-
-.white {
-  background-color: #fafafa;
 }
 
 .section {
@@ -116,6 +119,18 @@ onMounted(async () => {
 
 .input::placeholder {
   color: rgb(211, 213, 215);
+}
+
+.white {
+  background-color: #fafafa;
+}
+
+.input-white {
+  background-color: #ffffff;
+}
+
+.img-black {
+  filter: invert(1);
 }
 
 .country {
