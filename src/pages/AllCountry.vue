@@ -49,17 +49,23 @@ const isLoading = ref(true);
 
 const allCountries = ref([]);
 
-const getFiltered = async (event) => {
-  if (!event.target.value) {
-    await getCountries();
-    return;
-  }
-
+const getFiltered = async (event = { target: { value: "" } }) => {
   isLoading.value = true;
+
   try {
+    if (event.target.value) {
+      const response = await fetch(
+        `https://restcountries.com/v3.1/name/${event.target.value}`
+      );
+      const data = await response.json();
+      allCountries.value = data;
+      return;
+    }
+
     const response = await fetch(
-      `https://restcountries.com/v3.1/name/${event.target.value}`
+      `https://restcountries.com/v3.1/independent?status=true`
     );
+
     if (!response.ok) {
       throw new Error("Ошибка");
     }
@@ -73,25 +79,7 @@ const getFiltered = async (event) => {
   }
 };
 
-const getCountries = async () => {
-  try {
-    isLoading.value = true;
-    const response = await fetch(
-      `https://restcountries.com/v3.1/independent?status=true`
-    );
-    if (!response.ok) {
-      throw new Error(`Ошибка`);
-    }
-    const data = await response.json();
-    allCountries.value = data;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    isLoading.value = false;
-  }
-};
-
-onMounted(getCountries);
+onMounted(getFiltered);
 </script>
 
 <style>
