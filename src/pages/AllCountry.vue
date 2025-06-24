@@ -1,6 +1,7 @@
 <template>
   <div class="block" :class="{ white: !isDarkTheme }">
     <div class="container" :class="{ white: !isDarkTheme }">
+      <div>{{ data }}</div>
       <div class="section">
         <div class="search">
           <img
@@ -14,7 +15,7 @@
             :class="{ 'input-white': !isDarkTheme }"
             type="text"
             placeholder="Searcch for a country..."
-            @input="getFiltered"
+            v-model="name"
           />
         </div>
       </div>
@@ -34,10 +35,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import Country from "@/components/country.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
+import { useFetch } from "@vueuse/core";
 
 const darkTheme = useDarkThemeStore();
 
@@ -45,41 +47,41 @@ const { isDarkTheme } = storeToRefs(darkTheme);
 
 const id = ref(1);
 
+const name = ref("");
+
 const isLoading = ref(true);
 
 const allCountries = ref([]);
 
-const getFiltered = async (event = { target: { value: "" } }) => {
+const baseUrl = computed(() => {
+  return name.value
+    ? `https://restcountries.com/v3.1/name/${name.value}`
+    : `https://restcountries.com/v3.1/independent?status=true`;
+});
+
+const fetchData = async () => {
   isLoading.value = true;
 
-  try {
-    if (event.target.value) {
-      const response = await fetch(
-        `https://restcountries.com/v3.1/name/${event.target.value}`
-      );
-      const data = await response.json();
-      allCountries.value = data;
-      return;
-    }
+  const { data, error } = await useFetch(baseUrl.value);
 
-    const response = await fetch(
-      `https://restcountries.com/v3.1/independent?status=true`
-    );
-
-    if (!response.ok) {
-      throw new Error("Ошибка");
+  if (error.value) {
+    console.error("Ошибка при загрузке данных:", error.value);
+    allCountries.value = [];
+  } else {
+    try {
+      const parsedData = JSON.parse(data.value);
+      allCountries.value = parsedData;
+    } catch (err) {
+      console.error("Ошибка при парсинге данных:", err);
     }
-    const data = await response.json();
-    allCountries.value = data;
-    console.log(allCountries.value);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    isLoading.value = false;
   }
+
+  isLoading.value = false;
 };
 
-onMounted(getFiltered);
+watch(fetchData);
+
+onMounted(fetchData);
 </script>
 
 <style>
