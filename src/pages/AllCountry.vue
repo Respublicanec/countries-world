@@ -1,7 +1,6 @@
 <template>
   <div class="block" :class="{ white: !isDarkTheme }">
     <div class="container" :class="{ white: !isDarkTheme }">
-      <div>{{ data }}</div>
       <div class="section">
         <div class="search">
           <img
@@ -22,8 +21,9 @@
 
       <div class="country">
         <div v-if="isLoading">Загрузка данных...</div>
+
         <Country
-          v-for="country in allCountries"
+          v-for="country in data"
           :key="country.name.common"
           :country="country"
         />
@@ -35,11 +35,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import Country from "@/components/country.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
-import { useFetch } from "@vueuse/core";
+import { useFetch } from "@/utils/fetch.js";
 
 const darkTheme = useDarkThemeStore();
 
@@ -49,39 +49,13 @@ const id = ref(1);
 
 const name = ref("");
 
-const isLoading = ref(true);
-
-const allCountries = ref([]);
-
 const baseUrl = computed(() => {
   return name.value
     ? `https://restcountries.com/v3.1/name/${name.value}`
     : `https://restcountries.com/v3.1/independent?status=true`;
 });
 
-const fetchData = async () => {
-  isLoading.value = true;
-
-  const { data, error } = await useFetch(baseUrl.value);
-
-  if (error.value) {
-    console.error("Ошибка при загрузке данных:", error.value);
-    allCountries.value = [];
-  } else {
-    try {
-      const parsedData = JSON.parse(data.value);
-      allCountries.value = parsedData;
-    } catch (err) {
-      console.error("Ошибка при парсинге данных:", err);
-    }
-  }
-
-  isLoading.value = false;
-};
-
-watch(fetchData);
-
-onMounted(fetchData);
+const { data, error1, isLoading } = useFetch(baseUrl);
 </script>
 
 <style>
