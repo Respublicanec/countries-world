@@ -5,19 +5,19 @@ export function useFetch(url) {
   const data = ref(null);
   const error = ref(null);
 
-  const fetchData = () => {
+  async function fetchData() {
     data.value = null;
     error.value = null;
     isLoading.value = true;
 
-    fetch(toValue(url))
-      .then((res) => res.json())
-      .then((json) => {
-        data.value = json;
-        isLoading.value = false;
-      })
-      .catch((err) => (error.value = err));
-  };
+    try {
+      const res = await fetch(url.value);
+      data.value = await res.json();
+      isLoading.value = false;
+    } catch (err) {
+      error.value = err;
+    }
+  }
 
   watchEffect(() => {
     fetchData();

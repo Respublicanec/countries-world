@@ -20,8 +20,8 @@
       </div>
 
       <div class="country">
-        <div v-if="isLoading">Загрузка данных...</div>
-
+        <div v-if="error">Error</div>
+        <div v-else-if="isLoading">Загрузка данных...</div>
         <Country
           v-for="country in data"
           :key="country.name.common"
@@ -39,7 +39,7 @@ import { ref, computed } from "vue";
 import Country from "@/components/country.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
-import { useFetch } from "@/utils/fetch.js";
+import { useFetch } from "@/composables/fetch.js";
 
 const darkTheme = useDarkThemeStore();
 
@@ -55,7 +55,7 @@ const baseUrl = computed(() => {
     : `https://restcountries.com/v3.1/independent?status=true`;
 });
 
-const { data, error1, isLoading } = useFetch(baseUrl);
+const { data, error, isLoading } = useFetch(baseUrl);
 </script>
 
 <style>
