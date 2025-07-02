@@ -19,14 +19,16 @@
         </div>
       </div>
 
-      <div class="country">
+      <div>
         <div v-if="error">Error</div>
         <div v-else-if="isLoading">Загрузка данных...</div>
-        <Country
-          v-for="country in data"
-          :key="country.name.common"
-          :country="country"
-        />
+        <div v-else class="country">
+          <Country
+            v-for="country in data"
+            :key="country.name.common"
+            :country="country"
+          />
+        </div>
       </div>
 
       <router-link :to="`/${id}`">Вперед</router-link>
