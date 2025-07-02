@@ -3,23 +3,32 @@
     <div class="container" :class="{ white: !isDarkTheme }">
       <div class="section">
         <div class="search">
-          <img class="search-img" src="/images/loupe.svg" alt="" />
+          <img
+            class="search-img"
+            :class="{ 'img-black': !isDarkTheme }"
+            src="/images/loupe.svg"
+            alt=""
+          />
           <input
             class="input"
+            :class="{ 'input-white': !isDarkTheme }"
             type="text"
             placeholder="Searcch for a country..."
-            @input="test"
+            v-model="name"
           />
         </div>
       </div>
 
-      <div class="country">
-        <div v-if="isLoading">Загрузка данных...</div>
-        <Country
-          v-for="country in filtered"
-          :key="country.name.common"
-          :country="country"
-        />
+      <div>
+        <div v-if="error">error {{ error.message }}</div>
+        <div v-else-if="isLoading">Загрузка данных...</div>
+        <div v-else class="country">
+          <Country
+            v-for="country in data"
+            :key="country.name.common"
+            :country="country"
+          />
+        </div>
       </div>
 
       <router-link :to="`/${id}`">Вперед</router-link>
@@ -28,10 +37,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed } from "vue";
 import Country from "@/components/country.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
+import { useFetch } from "@/composables/fetch.js";
 
 const darkTheme = useDarkThemeStore();
 
@@ -39,40 +49,15 @@ const { isDarkTheme } = storeToRefs(darkTheme);
 
 const id = ref(1);
 
-const isLoading = ref(true);
+const name = ref("");
 
-const allCountries = ref([]);
-
-const filtered = ref([]);
-
-const test = (event) => {
-  if (!event.target.value) {
-    filtered.value = allCountries.value;
-    return;
-  }
-  filtered.value = allCountries.value.filter((item) =>
-    item.name.common.toLowerCase().includes(event.target.value.toLowerCase())
-  );
-};
-
-onMounted(async () => {
-  try {
-    isLoading.value = true;
-    const response = await fetch(
-      `https://restcountries.com/v3.1/independent?status=true`
-    );
-    if (!response.ok) {
-      throw new Error(`Ошибка`);
-    }
-    const data = await response.json();
-    allCountries.value = data;
-    filtered.value = data;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    isLoading.value = false;
-  }
+const baseUrl = computed(() => {
+  return name.value
+    ? `https://restcountries.com/v3.1/name/${name.value}`
+    : `https://restcountries.com/v3.1/independent?status=true`;
 });
+
+const { data, error, isLoading } = useFetch(baseUrl);
 </script>
 
 <style>
@@ -81,10 +66,6 @@ onMounted(async () => {
   justify-content: center;
   background-color: #212e37;
   border: none;
-}
-
-.white {
-  background-color: #fafafa;
 }
 
 .section {
@@ -116,6 +97,18 @@ onMounted(async () => {
 
 .input::placeholder {
   color: rgb(211, 213, 215);
+}
+
+.white {
+  background-color: #fafafa;
+}
+
+.input-white {
+  background-color: #ffffff;
+}
+
+.img-black {
+  filter: invert(1);
 }
 
 .country {
