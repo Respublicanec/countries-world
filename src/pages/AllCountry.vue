@@ -20,7 +20,7 @@
       </div>
 
       <div>
-        <div v-if="error">Error</div>
+        <div v-if="error">error {{ error.message }}</div>
         <div v-else-if="isLoading">Загрузка данных...</div>
         <div v-else class="country">
           <Country
