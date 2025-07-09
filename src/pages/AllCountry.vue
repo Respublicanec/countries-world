@@ -17,6 +17,18 @@
             v-model="name"
           />
         </div>
+
+        <div class="select-container">
+          <select id="options" class="filter" v-model="selectedRegion">
+            <option value="" disabled selected hidden>Filter by Region</option>
+            <option value="all">All</option>
+            <option value="Africa">Africa</option>
+            <option value="Americas">America</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="Oceania">Oceania</option>
+          </select>
+        </div>
       </div>
 
       <div>
@@ -24,7 +36,7 @@
         <div v-else-if="isLoading">Загрузка данных...</div>
         <div v-else class="country">
           <Country
-            v-for="country in data"
+            v-for="country in countries"
             :key="country.name.common"
             :country="country"
           />
@@ -51,6 +63,8 @@ const id = ref(1);
 
 const name = ref("");
 
+const selectedRegion = ref("");
+
 const baseUrl = computed(() => {
   return name.value
     ? `https://restcountries.com/v3.1/name/${name.value}`
@@ -58,6 +72,14 @@ const baseUrl = computed(() => {
 });
 
 const { data, error, isLoading } = useFetch(baseUrl);
+
+const countries = computed(() => {
+  if (!selectedRegion.value || selectedRegion.value === "all") {
+    return data.value;
+  } else {
+    return data.value.filter((item) => item.region === selectedRegion.value);
+  }
+});
 </script>
 
 <style>
@@ -69,6 +91,8 @@ const { data, error, isLoading } = useFetch(baseUrl);
 }
 
 .section {
+  display: flex;
+  justify-content: space-between;
   padding: 0 80px;
 }
 
@@ -90,13 +114,45 @@ const { data, error, isLoading } = useFetch(baseUrl);
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 5px;
-  padding: 20px;
-  padding-left: 70px;
+  padding: 20px 250px 20px 70px;
+
   width: 100%;
 }
 
 .input::placeholder {
   color: rgb(211, 213, 215);
+}
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  margin: 50px 0;
+}
+
+.filter {
+  padding: 20px 85px 20px 25px;
+  background-color: #2b3743;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 7px;
+  appearance: none;
+}
+
+.select-container::after {
+  border-bottom: 2px solid rgb(255, 255, 255);
+  border-right: 2px solid rgb(255, 255, 255);
+  content: "";
+  padding: 2px;
+  position: absolute;
+  right: 22px;
+  top: 44%;
+
+  transform: rotate(45deg);
+  pointer-events: none; /* Игнорировать события мыши */
+}
+
+.filter select {
+  margin-top: 102px; /* Увеличиваем верхний отступ для смещения вниз */
 }
 
 .white {
