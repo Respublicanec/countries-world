@@ -23,7 +23,7 @@
 
       <div>
         <div v-if="error">error {{ error.message }}</div>
-        <div v-else-if="isLoading">Загрузка данных...</div>
+        <div v-else-if="isLoading" class="load">Загрузка данных...</div>
         <div v-else class="country">
           <Country
             v-for="country in countries"
@@ -33,14 +33,14 @@
         </div>
       </div>
 
-      <router-link :to="`/${id}`">Вперед</router-link>
+      <!-- <router-link :to="`/${id}`">Вперед</router-link> -->
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import Country from "@/components/country.vue";
+import Country from "@/components/Country.vue";
 import Filters from "@/components/Filters.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
@@ -83,6 +83,10 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   border: none;
 }
 
+.container {
+  width: 100%;
+}
+
 .section {
   display: flex;
   justify-content: space-between;
@@ -102,6 +106,10 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   top: 67px;
 }
 
+.load {
+  padding: 0 80px;
+}
+
 .input {
   background-color: #2b3743;
   color: rgb(255, 255, 255);
@@ -114,21 +122,6 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 .input::placeholder {
   color: rgb(211, 213, 215);
-}
-
-.select-container {
-  position: relative;
-  display: inline-block;
-  margin: 50px 0;
-}
-
-.filter {
-  padding: 20px 85px 20px 25px;
-  background-color: #2b3743;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 7px;
-  appearance: none;
 }
 
 .select-container::after {
