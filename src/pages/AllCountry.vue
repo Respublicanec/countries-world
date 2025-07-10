@@ -18,17 +18,7 @@
           />
         </div>
 
-        <div class="select-container">
-          <select id="options" class="filter" v-model="selectedRegion">
-            <option value="" disabled selected hidden>Filter by Region</option>
-            <option value="all">All</option>
-            <option value="Africa">Africa</option>
-            <option value="Americas">America</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="Oceania">Oceania</option>
-          </select>
-        </div>
+        <Filters :regions="regions" v-model="selectedRegion" />
       </div>
 
       <div>
@@ -51,6 +41,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import Country from "@/components/country.vue";
+import Filters from "@/components/Filters.vue";
 import { useDarkThemeStore } from "@/stores/common";
 import { storeToRefs } from "pinia";
 import { useFetch } from "@/composables/fetch.js";
@@ -74,12 +65,14 @@ const baseUrl = computed(() => {
 const { data, error, isLoading } = useFetch(baseUrl);
 
 const countries = computed(() => {
-  if (!selectedRegion.value || selectedRegion.value === "all") {
+  if (!selectedRegion.value || selectedRegion.value === "All") {
     return data.value;
   } else {
     return data.value.filter((item) => item.region === selectedRegion.value);
   }
 });
+
+const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 </script>
 
 <style>
