@@ -166,10 +166,6 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   pointer-events: none;
 }
 
-.filter select {
-  margin-top: 102px;
-}
-
 .white {
   background-color: #fafafa;
 }
