@@ -24,7 +24,10 @@
       <div>
         <div v-if="error" class="message">error {{ error.message }}</div>
         <div v-else-if="isLoading" class="message">Загрузка данных...</div>
-        <div v-else-if="countries.message === 'Not Found'" class="message">
+        <div
+          v-else-if="data.status === 404 || countries.length === 0"
+          class="message"
+        >
           Ничего не найдено
         </div>
         <div v-else class="country">
