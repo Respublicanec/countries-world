@@ -18,15 +18,32 @@
           />
         </div>
 
-        <Filters :regions="regions" v-model="selectedRegion" />
+        <Filters
+          :regions="regions"
+          :isDarkTheme="isDarkTheme"
+          v-model="selectedRegion"
+        />
       </div>
 
       <div>
-        <div v-if="error" class="message">error {{ error.message }}</div>
-        <div v-else-if="isLoading" class="message">Загрузка данных...</div>
+        <div
+          v-if="error"
+          class="message"
+          :class="{ 'message-black': !isDarkTheme }"
+        >
+          error {{ error.message }}
+        </div>
+        <div
+          v-else-if="isLoading"
+          class="message"
+          :class="{ 'message-black': !isDarkTheme }"
+        >
+          Загрузка данных...
+        </div>
         <div
           v-else-if="data.status === 404 || countries.length === 0"
           class="message"
+          :class="{ 'message-black': !isDarkTheme }"
         >
           Ничего не найдено
         </div>
@@ -38,8 +55,6 @@
           />
         </div>
       </div>
-
-      <!-- <router-link :to="`/${id}`">Вперед</router-link> -->
     </div>
   </div>
 </template>
@@ -55,8 +70,6 @@ import { useFetch } from "@/composables/fetch.js";
 const darkTheme = useDarkThemeStore();
 
 const { isDarkTheme } = storeToRefs(darkTheme);
-
-const id = ref(1);
 
 const name = ref("");
 
@@ -81,7 +94,7 @@ const countries = computed(() => {
 const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 </script>
 
-<style>
+<style scoped>
 .block {
   display: flex;
   justify-content: center;
@@ -114,6 +127,11 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 .message {
   padding: 0 80px;
+  color: white;
+}
+
+.message-black {
+  color: rgb(0, 0, 0);
 }
 
 .input {
@@ -126,8 +144,12 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   width: 100%;
 }
 
-.input::placeholder {
+.input-white::placeholder {
   color: rgb(211, 213, 215);
+}
+
+.input-white::placeholder {
+  color: rgb(0, 0, 0);
 }
 
 .select-container::after {
@@ -140,11 +162,11 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   top: 44%;
 
   transform: rotate(45deg);
-  pointer-events: none; /* Игнорировать события мыши */
+  pointer-events: none;
 }
 
 .filter select {
-  margin-top: 102px; /* Увеличиваем верхний отступ для смещения вниз */
+  margin-top: 102px;
 }
 
 .white {
@@ -153,6 +175,7 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 .input-white {
   background-color: #ffffff;
+  color: black;
 }
 
 .img-black {
