@@ -6,6 +6,11 @@ export const useDarkThemeStore = defineStore("theme", () => {
 
   function changeTheme() {
     isDarkTheme.value = !isDarkTheme.value;
+    if (isDarkTheme.value) {
+      document.body.style.backgroundColor = "#212E37";
+    } else {
+      document.body.style.backgroundColor = "#FAFAFA";
+    }
   }
 
   return { isDarkTheme, changeTheme };
