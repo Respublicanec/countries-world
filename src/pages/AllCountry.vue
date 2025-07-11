@@ -22,8 +22,11 @@
       </div>
 
       <div>
-        <div v-if="error">error {{ error.message }}</div>
-        <div v-else-if="isLoading" class="load">Загрузка данных...</div>
+        <div v-if="error" class="message">error {{ error.message }}</div>
+        <div v-else-if="isLoading" class="message">Загрузка данных...</div>
+        <div v-else-if="countries.message === 'Not Found'" class="message">
+          Ничего не найдено
+        </div>
         <div v-else class="country">
           <Country
             v-for="country in countries"
@@ -106,7 +109,7 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   top: 67px;
 }
 
-.load {
+.message {
   padding: 0 80px;
 }
 
