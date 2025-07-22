@@ -49,11 +49,11 @@
           Ничего не найдено
         </div>
         <div v-else class="country">
-          <Country
-            v-for="country in countries"
-            :key="country.name.common"
-            :country="country"
-          />
+          <div v-for="country in countries" :key="country.name.common">
+            <router-link :to="`/${country.cca2}`">
+              <Country :country="country" />
+            </router-link>
+          </div>
         </div>
       </div>
     </div>

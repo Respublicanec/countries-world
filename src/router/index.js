@@ -10,7 +10,7 @@ const router = createRouter({
       component: AllCountry,
     },
     {
-      path: "/:id",
+      path: "/:cca2",
       component: FullDescription,
     },
   ],

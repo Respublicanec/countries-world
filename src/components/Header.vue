@@ -8,7 +8,7 @@
           :class="{ 'icon-black': isDarkTheme }"
           src="/images/moon.svg"
         />
-        <p>Dark Mode</p>
+        <p class="mode">Dark Mode</p>
       </div>
     </header>
   </div>
@@ -40,10 +40,19 @@ const emit = defineEmits(["click", "changeTheme"]);
   justify-content: space-between;
   width: 100%;
   padding: 22px 78px;
+
+  @media (max-width: 800px) {
+    padding: 60px 30px;
+  }
 }
 
 .title {
   font-size: 26px;
+
+  @media (max-width: 800px) {
+    font-size: 28px;
+    font-weight: 600;
+  }
 }
 
 .header.white .header-container,
@@ -59,10 +68,24 @@ const emit = defineEmits(["click", "changeTheme"]);
   margin-left: auto;
   margin-right: 8px;
   gap: 10px;
+
+  @media (max-width: 800px) {
+    gap: 20px;
+  }
 }
 
 .icon {
   height: 18px;
+
+  @media (max-width: 800px) {
+    height: 28px;
+  }
+}
+
+.mode {
+  @media (max-width: 800px) {
+    font-size: 24px;
+  }
 }
 
 .icon-black {

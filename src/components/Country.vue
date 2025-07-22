@@ -37,7 +37,7 @@ const props = defineProps({
 });
 </script>
 
-<style>
+<style scoped>
 .card {
   min-height: 340px;
   background-color: #2b3743;
