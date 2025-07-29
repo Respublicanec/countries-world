@@ -31,7 +31,7 @@ const { isDarkTheme } = storeToRefs(darkTheme);
 
 const props = defineProps({
   country: {
-    type: Object, // Изменено с Array на Object
+    type: Object,
     required: true,
   },
 });

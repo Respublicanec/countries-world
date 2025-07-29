@@ -41,17 +41,16 @@ const emit = defineEmits(["click", "changeTheme"]);
   width: 100%;
   padding: 22px 78px;
 
-  @media (max-width: 800px) {
-    padding: 60px 30px;
+  @media (max-width: 450px) {
+    padding: 30px 12px;
   }
 }
 
 .title {
   font-size: 26px;
 
-  @media (max-width: 800px) {
-    font-size: 28px;
-    font-weight: 600;
+  @media (max-width: 600px) {
+    font-size: 14px;
   }
 }
 
@@ -69,22 +68,22 @@ const emit = defineEmits(["click", "changeTheme"]);
   margin-right: 8px;
   gap: 10px;
 
-  @media (max-width: 800px) {
-    gap: 20px;
+  @media (max-width: 600px) {
+    gap: 10px;
   }
 }
 
 .icon {
   height: 18px;
 
-  @media (max-width: 800px) {
-    height: 28px;
+  @media (max-width: 600px) {
+    height: 14px;
   }
 }
 
 .mode {
-  @media (max-width: 800px) {
-    font-size: 24px;
+  @media (max-width: 600px) {
+    font-size: 12px;
   }
 }
 

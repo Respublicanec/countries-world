@@ -111,12 +111,21 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   display: flex;
   justify-content: space-between;
   padding: 0 80px;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    padding: 0;
+  }
 }
 
 .search {
   position: relative;
-  padding: 50px 0;
+  padding: 50px 0 30px 0;
   max-width: 480px;
+
+  @media (max-width: 700px) {
+    padding: 25px 15px;
+  }
 }
 
 .search-img {
@@ -124,6 +133,12 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   width: 19px;
   left: 27px;
   top: 67px;
+
+  @media (max-width: 700px) {
+    width: 18px;
+    left: 45px;
+    top: 40px;
+  }
 }
 
 .message {
@@ -141,8 +156,16 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   border: none;
   border-radius: 5px;
   padding: 20px 250px 20px 70px;
-
   width: 100%;
+
+  @media (max-width: 900px) {
+    padding: 20px 100px 20px 70px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 12px;
+    padding: 16px 100px 16px 72px;
+  }
 }
 
 .input-white::placeholder {
@@ -151,19 +174,6 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 .input-white::placeholder {
   color: rgb(0, 0, 0);
-}
-
-.select-container::after {
-  border-bottom: 2px solid rgb(255, 255, 255);
-  border-right: 2px solid rgb(255, 255, 255);
-  content: "";
-  padding: 2px;
-  position: absolute;
-  right: 22px;
-  top: 44%;
-
-  transform: rotate(45deg);
-  pointer-events: none;
 }
 
 .white {
@@ -209,7 +219,12 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 1px;
+    padding: 0 55px;
   }
+}
+
+.country a:hover {
+  background-color: transparent;
 }
 </style>
