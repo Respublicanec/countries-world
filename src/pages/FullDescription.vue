@@ -12,7 +12,9 @@
         src="/images/arrow-left.svg"
         alt=""
     /></router-link>
-    <div v-if="!data" class="block">Загрузка...</div>
+    <div v-if="!data" class="load" :class="{ black: !isDarkTheme }">
+      Загрузка данных...
+    </div>
     <div v-else class="block">
       <img class="flag" :src="data.flags?.svg" alt="" />
       <div class="container-info" :class="{ white: isDarkTheme }">
@@ -165,6 +167,7 @@ const getLanguages = computed(() => {
 }
 
 .block {
+  color: black;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 70px;
@@ -179,6 +182,15 @@ const getLanguages = computed(() => {
   @media (max-width: 450px) {
     padding: 64px 33px 20px 22px;
   }
+}
+
+.load {
+  color: rgb(255, 255, 255);
+  padding: 30px 77px;
+}
+
+.black {
+  color: rgb(0, 0, 0);
 }
 
 .container-info {
@@ -256,6 +268,7 @@ span {
   display: flex;
   align-items: center;
   padding-top: 80px;
+  align-items: start;
 
   @media (max-width: 450px) {
     padding-top: 45px;
