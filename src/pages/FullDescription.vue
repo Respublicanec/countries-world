@@ -12,7 +12,7 @@
         src="/images/arrow-left.svg"
         alt=""
     /></router-link>
-    <div v-if="!data">Загрузка...</div>
+    <div v-if="!data" class="block">Загрузка...</div>
     <div v-else class="block">
       <img class="flag" :src="data.flags?.svg" alt="" />
       <div class="container-info" :class="{ white: isDarkTheme }">
@@ -52,7 +52,6 @@
             <p>
               <span>Languages:</span>
               {{ getLanguages }}
-              {{ getBorders }}
             </p>
           </div>
         </div>
@@ -108,14 +107,6 @@ const getCurrency = computed(() => {
 const getLanguages = computed(() => {
   const languageNames = Object.values(data.value.languages);
   return languageNames.join(". ");
-});
-
-const getBorders = computed(() => {
-  const bordersCode = Object.values(data.value.borders);
-  const borders = [];
-  for (let i = 0; i < bordersCode.length; i++) {
-    borders.push;
-  }
 });
 </script>
 
@@ -193,7 +184,7 @@ const getBorders = computed(() => {
 .container-info {
   padding-left: 25px;
 
-  @media (max-width: 450px) {
+  @media (max-width: 950px) {
     padding-left: 0;
   }
 }
@@ -249,7 +240,7 @@ span {
   align-items: start;
   gap: 60px;
 
-  @media (max-width: 450px) {
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
     padding-top: 30px;
     gap: 50px;

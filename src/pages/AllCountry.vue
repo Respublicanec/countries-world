@@ -13,7 +13,7 @@
             class="input"
             :class="{ 'input-white': !isDarkTheme }"
             type="text"
-            placeholder="Searcch for a country..."
+            placeholder="Search for a country..."
             v-model="name"
           />
         </div>
@@ -219,7 +219,7 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    gap: 1px;
+    gap: px;
     padding: 0 55px;
   }
 }
