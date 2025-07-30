@@ -1,5 +1,5 @@
 <template>
-  <div class="select-container">
+  <div class="select-container" :class="{ 'arrow-black': !isDarkTheme }">
     <select
       id="region"
       v-model="modal"
@@ -56,6 +56,11 @@ const modal = defineModel();
   }
 }
 
+.arrow-black::after {
+  border-bottom: 2px solid rgb(0, 0, 0);
+  border-right: 2px solid rgb(0, 0, 0);
+}
+
 .filter {
   padding: 20px 85px 20px 25px;
   background-color: #2b3743;
@@ -63,6 +68,7 @@ const modal = defineModel();
   border: none;
   border-radius: 7px;
   appearance: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
   @media (max-width: 450px) {
     font-size: 12px;

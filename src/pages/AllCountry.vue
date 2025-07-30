@@ -157,6 +157,7 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
   border-radius: 5px;
   padding: 20px 250px 20px 70px;
   width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
   @media (max-width: 900px) {
     padding: 20px 100px 20px 70px;
@@ -173,7 +174,7 @@ const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 }
 
 .input-white::placeholder {
-  color: rgb(0, 0, 0);
+  color: #b2b2b2;
 }
 
 .white {

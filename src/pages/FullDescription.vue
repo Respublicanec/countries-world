@@ -304,8 +304,12 @@ span {
 }
 
 .countries {
-  @media (max-width: 450px) {
+  min-width: 130px;
+  padding-top: 3px;
+  @media (max-width: 600px) {
+    min-width: auto;
     font-size: 16px;
+    padding-top: 0;
   }
 }
 
