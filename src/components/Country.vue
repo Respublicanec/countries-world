@@ -31,13 +31,13 @@ const { isDarkTheme } = storeToRefs(darkTheme);
 
 const props = defineProps({
   country: {
-    type: Object, // Изменено с Array на Object
+    type: Object,
     required: true,
   },
 });
 </script>
 
-<style>
+<style scoped>
 .card {
   min-height: 340px;
   background-color: #2b3743;
